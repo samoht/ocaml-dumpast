@@ -1,4 +1,4 @@
-OPAM_DEPENDS="ocamlfind optcomp" # For the tests
+OPAM_DEPENDS="ocamlfind"
 
 install_on_linux () {
     # Install OCaml and OPAM PPAs
