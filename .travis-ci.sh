@@ -32,7 +32,6 @@ esac
 opam install ${OPAM_DEPENDS}
 
 eval `opam config env`
-./bootstrap.sh
 make
 make install
 make distclean
