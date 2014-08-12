@@ -72,7 +72,7 @@ let dump oc file =
     exit 2
 
 let error () =
-  eprintf "Usage: ocaml-astdump <pp-tool> <pp-flags>* <input>\n";
+  eprintf "Usage: ocaml-astdump [TOOL [FLAGS]*]? FILENAME\n";
   exit 1
 
 let () =
@@ -83,8 +83,7 @@ let () =
     | h::t -> h, List.rev t
   in
   match args with
-  | [] -> assert false
-  | [tool] -> dump stdout input; flush stdout
+  | [] | [_] -> dump stdout input; flush stdout
   | tool::args ->
     let args = tool :: args @ [input] in
     Unix.execvp tool (Array.of_list args)
