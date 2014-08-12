@@ -17,8 +17,6 @@
 (* Dump an AST to a file. *)
 
 open Misc
-open Format
-open Compenv
 open Printf
 
 let ppf = Format.err_formatter
