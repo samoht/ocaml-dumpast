@@ -1,5 +1,7 @@
 ### OCaml AST dumper
 
+[![Build Status](https://travis-ci.org/samoht/ocaml-dumpast.svg?branch=master)](https://travis-ci.org/samoht/ocaml-dumpast)
+
 Usage:
 
 ```
