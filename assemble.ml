@@ -2,10 +2,14 @@ open Assemblage
 
 let unix = pkg "unix"
 let bytecomp = pkg "compiler-libs.bytecomp"
-let optcomp = pkg_pp "optcomp"
 
-let bin = bin "ocaml-dumpast" (`Units [
-    unit ~deps:[unix;optcomp;bytecomp] "dumpast" (`Dir "src")
+let ocaml_version =
+  Scanf.sscanf Sys.ocaml_version "%d.%d" (fun i j -> i,j)
+
+let bin = bin "ocaml-dumpast" ~deps:[bytecomp; unix] (`Units [
+    (if ocaml_version < (4,2) then unit "parse_compat" (`Dir "src/401")
+     else unit "parse_compat" (`Dir "src/402"));
+    unit "dumpast" (`Dir "src")
   ])
 
 let t = project "dumpast" [ bin ]
