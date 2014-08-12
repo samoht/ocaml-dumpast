@@ -72,7 +72,7 @@ let dump oc file =
     exit 2
 
 let error () =
-  eprintf "Usage: ocaml-astdump [TOOL [FLAGS]*]? FILENAME\n";
+  eprintf "Usage: ocaml-astdump [TOOL FLAGS*]? FILENAME\n";
   exit 1
 
 let () =

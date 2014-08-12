@@ -5,7 +5,7 @@
 Usage:
 
 ```
-ocaml-dumpast <pp-tool> <pp-options>* <input>
+ocaml-dumpast [TOOL FLAGS*]? INPUT
 ```
 
 The only feature of that tool is to *not* call `<pp-tool>` if
