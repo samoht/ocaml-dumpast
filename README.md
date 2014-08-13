@@ -8,5 +8,5 @@ Usage:
 ocaml-dumpast [TOOL FLAGS*]? INPUT
 ```
 
-The only feature of that tool is to *not* call `<pp-tool>` if
-`<pp-options>` are empty, but use compiler-libs directly.
+The only feature of that tool is to *not* call `TOOL` if
+`FLAGS` are empty, but use compiler-libs directly.
