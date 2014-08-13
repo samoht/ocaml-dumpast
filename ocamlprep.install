@@ -1,5 +1,0 @@
-bin: [
-  "?_build/bin-ocamlprep/ocamlprep.byte" {"ocamlprep"}
-  "?_build/bin-ocamlprep/ocamlprep.native" {"ocamlprep"}
-  "?_build/bin-ocamlprep/ocamlprep.js" {"ocamlprep"}
-]

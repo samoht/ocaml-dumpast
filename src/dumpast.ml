@@ -17,37 +17,12 @@
 (* Dump an AST to a file. *)
 
 open Misc
-open Format
-open Compenv
 open Printf
 
 let ppf = Format.err_formatter
 let tool_name = "ocaml-astdump"
 
-#if ocaml_version < (4, 2)
-module Pparse = struct
-  include Pparse
-  (* from `ocaml-4.02/driver/pparse.ml' *)
-  let parse_all ~tool_name:_ parse_fun magic ppf sourcefile =
-    Location.input_name := sourcefile;
-    let inputfile = Pparse.preprocess sourcefile in
-    let ast =
-      try Pparse.file ppf (*~tool_name*) inputfile parse_fun magic
-      with exn ->
-        Pparse.remove_preprocessed inputfile;
-        raise exn
-    in
-    Pparse.remove_preprocessed inputfile;
-    ast
-  let parse_implementation ppf ~tool_name sourcefile =
-    parse_all Parse.implementation ~tool_name Config.ast_impl_magic_number ppf sourcefile
-  let parse_interface ppf ~tool_name sourcefile =
-    parse_all Parse.interface ~tool_name Config.ast_intf_magic_number ppf sourcefile
-end
-#endif
-
 let dump fn magic oc file =
-  Compmisc.init_path false;
   let modulename =
     String.capitalize (Filename.basename (chop_extension_if_any file))
   in
@@ -58,10 +33,10 @@ let dump fn magic oc file =
   output_value oc ast
 
 let interface =
-  dump Pparse.parse_interface Config.ast_intf_magic_number
+  dump Parse_compat.parse_interface Config.ast_intf_magic_number
 
 let implementation =
-  dump Pparse.parse_implementation Config.ast_impl_magic_number
+  dump Parse_compat.parse_implementation Config.ast_impl_magic_number
 
 let dump oc file =
   try
@@ -72,7 +47,7 @@ let dump oc file =
     exit 2
 
 let error () =
-  eprintf "Usage: ocaml-astdump <pp-tool> <pp-flags>* <input>\n";
+  eprintf "Usage: ocaml-astdump [TOOL FLAGS*]? FILENAME\n";
   exit 1
 
 let () =
@@ -83,8 +58,7 @@ let () =
     | h::t -> h, List.rev t
   in
   match args with
-  | [] -> assert false
-  | [tool] -> dump stdout input; flush stdout
+  | [] | [_] -> dump stdout input; flush stdout
   | tool::args ->
     let args = tool :: args @ [input] in
     Unix.execvp tool (Array.of_list args)
