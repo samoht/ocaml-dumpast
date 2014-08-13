@@ -23,7 +23,6 @@ let ppf = Format.err_formatter
 let tool_name = "ocaml-astdump"
 
 let dump fn magic oc file =
-  Compmisc.init_path false;
   let modulename =
     String.capitalize (Filename.basename (chop_extension_if_any file))
   in
