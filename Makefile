@@ -4,9 +4,9 @@
 
 .PHONY: all clean lib bin test doc distclean js help bin-ocaml-dumpast
 
-# 
+#
 # Main project configuration
-# 
+#
 
 BUILDIR     ?= _build
 DUMPAST     ?= ocaml-dumpast
@@ -38,15 +38,15 @@ HAS_NATIVE_DYNLINK ?= true
 HAS_TEST           ?= false
 HAS_WARN_ERROR     ?= false
 
-# 
+#
 # Global variables
-# 
+#
 
 all            := lib bin
-compile-byte   := 
-compile-native := 
-link-byte      := 
-link-native    := 
+compile-byte   :=
+compile-native :=
+link-byte      :=
+link-native    :=
 ifeq ($(HAS_WARN_ERROR:true=),)
 compile-byte   += -warn-error A-44-4-48 -w A-44-4-48
 endif
@@ -60,22 +60,22 @@ ifeq ($(HAS_ANNOT:true=),)
 compile-byte   += -bin-annot
 endif
 
-# 
+#
 # Component configuration.
-# 
+#
 # Each component has variables associated to the different phases of the build.
 # <NAME>.<PHASE> controls the compilation options for the component <NAME>,
 # during the phase <PHASE>.
-# 
+#
 
-lib := 
+lib :=
 
 bin := bin-ocaml-dumpast
 
-js := 
+js :=
 
 # Binary: ocaml-dumpast
-bin-ocaml-dumpast := 
+bin-ocaml-dumpast :=
 ifeq ($(HAS_BYTE:true=),)
 bin-ocaml-dumpast += $(BUILDIR)/bin-ocaml-dumpast/ocaml-dumpast.byte
 endif
@@ -117,9 +117,9 @@ bin-ocaml-dumpast.link-native ?=  \
 bin-ocaml-dumpast.pp-byte ?= $(pp-byte)
 bin-ocaml-dumpast.pp-native ?= $(pp-native)
 
-test := 
+test :=
 
-doc := 
+doc :=
 
 # Compilation unit: src/401/parse_compat
 bin-ocaml-dumpast-parse_compat.compile-byte ?= $(bin-ocaml-dumpast.compile-byte)
@@ -136,7 +136,7 @@ bin-ocaml-dumpast-dumpast.pp-byte ?= $(bin-ocaml-dumpast.pp-byte)
 bin-ocaml-dumpast-dumpast.pp-native ?= $(bin-ocaml-dumpast.pp-native)
 
 
-all:: 
+all::
 	@echo '[04mall[m [33m=>[m ${all}'
 	@$(MAKE) $(all)
 	@if [ "x${HAS_JS}" = "x1" ]; then $(MAKE) js; fi
@@ -145,7 +145,7 @@ all::
 	@if [ "x${HAS_FULL_DOC}" = "x1" ]; then $(MAKE) full-doc; fi
 	@echo '[32m== Done![m'
 
-clean:: 
+clean::
 	rm -f *~ **/*~
 	rm -rf $(BUILDIR)
 
@@ -155,7 +155,7 @@ distclean:: clean
 install:: all
 	@opam-installer --prefix $(shell opam config var prefix) dumpast.install
 
-help: 
+help:
 	@echo 'Use [04mVERBOSE=1[m to show the full commands.'
 	@echo 'The following targets are available (use "make [04m<target>[m"):'
 	@echo
@@ -193,7 +193,7 @@ js: $(js)
 bin-ocaml-dumpast: $(bin-ocaml-dumpast)
 	@
 
-$(BUILDIR)/bin-ocaml-dumpast/: 
+$(BUILDIR)/bin-ocaml-dumpast/:
 	@if test -n "$$VERBOSE"; then echo '$(MKDIR) $(BUILDIR)/bin-ocaml-dumpast'; else echo '[33mbin-ocaml-dumpast[m                     [01mprepare[m                bin-ocaml-dumpast'; fi
 	@$(MKDIR) $(BUILDIR)/bin-ocaml-dumpast
 
