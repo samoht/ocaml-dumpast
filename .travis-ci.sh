@@ -33,6 +33,12 @@ esac
 opam install ${OPAM_DEPENDS}
 
 eval `opam config env`
+
+case "$OCAML_VERSION" in
+    4.02.0) export OCAML_VERSION=402;;
+    *)      export OCAML_VERSION=401;;
+esac
+
 make
 make test
 make install
