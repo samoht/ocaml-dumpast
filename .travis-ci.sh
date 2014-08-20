@@ -21,6 +21,7 @@ ocaml -version
 
 export OPAMYES=1
 export OPAMVERBOSE=1
+export VERBOSE=1
 
 opam init git://github.com/ocaml/opam-repository >/dev/null 2>&1
 
