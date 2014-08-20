@@ -1,2 +1,3 @@
 PKG compiler-libs.bytecomp
 PKG assemblage
+B _build/bin-ocaml-dumpast
