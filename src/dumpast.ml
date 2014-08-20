@@ -22,6 +22,10 @@ open Printf
 let ppf = Format.err_formatter
 let tool_name = "ocaml-astdump"
 
+type t =
+  | Impl of Parsetree.structure
+  | Intf of Parsetree.signature
+
 let dump fn magic oc file =
   let modulename =
     String.capitalize (Filename.basename (chop_extension_if_any file))
@@ -30,13 +34,21 @@ let dump fn magic oc file =
   let ast = fn ppf ~tool_name file in
   output_string oc magic;
   output_value oc !Location.input_name;
-  output_value oc ast
+  match ast with
+  | Impl ast -> output_value oc ast
+  | Intf ast -> output_value oc ast
 
 let interface =
-  dump Parse_compat.parse_interface Config.ast_intf_magic_number
+  let fn ppf ~tool_name file =
+    Intf (Parse_compat.parse_interface ppf ~tool_name file)
+  in
+  dump fn Config.ast_intf_magic_number
 
 let implementation =
-  dump Parse_compat.parse_implementation Config.ast_impl_magic_number
+  let fn pp ~tool_name file =
+    Impl (Parse_compat.parse_implementation ppf ~tool_name file)
+  in
+  dump fn Config.ast_impl_magic_number
 
 let dump oc file =
   try
