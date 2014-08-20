@@ -3,6 +3,6 @@ maintainer: "thomas@gazagnaire.org"
 authors: ["Thomas Gazagnaire <thomas@gazagnaire.org>"]
 license: "ISC"
 build: [
-  [make]
+  [make "402" { ocaml-version > "4.01" }]
   [make "install"]
 ]
