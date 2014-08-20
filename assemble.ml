@@ -12,6 +12,11 @@ let bin = bin "ocaml-dumpast" ~deps:[bytecomp; unix] (`Units [
     unit "dumpast" (`Path ["src"])
   ])
 
-let t = project "dumpast" [ bin ]
+let test =
+  test "test" ~dir:"src" [
+    test_bin bin ~args:(fun _ -> ["dumpast.ml > xx"]) ()
+  ]
+
+let t = project "dumpast" [ bin; test ]
 
 let () = assemble t
