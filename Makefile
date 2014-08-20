@@ -121,7 +121,8 @@ test :=
 
 doc :=
 
-# Compilation unit: src/401/parse_compat
+OCAML_VERSION ?= 401
+# Compilation unit: src/$(OCAML_VERSION)/parse_compat
 bin-ocaml-dumpast-parse_compat.compile-byte ?= $(bin-ocaml-dumpast.compile-byte)
 bin-ocaml-dumpast-parse_compat.compile-native ?= $(bin-ocaml-dumpast.compile-native)
 bin-ocaml-dumpast-parse_compat.dep ?= $(bin-ocaml-dumpast.dep)
@@ -215,9 +216,9 @@ test: $(test)
 doc: $(doc)
 	@
 
-$(BUILDIR)/bin-ocaml-dumpast/parse_compat.ml: src/401/parse_compat.ml | $(BUILDIR)/bin-ocaml-dumpast/
-	@if test -n "$$VERBOSE"; then echo '$(LN) $(ROOTDIR)/src/401/parse_compat.ml $(BUILDIR)/bin-ocaml-dumpast/parse_compat.ml'; else echo '[33mbin-ocaml-dumpast-parse_compat[m        [01mprepare[m                parse_compat.ml'; fi
-	@$(LN) $(ROOTDIR)/src/401/parse_compat.ml $(BUILDIR)/bin-ocaml-dumpast/parse_compat.ml
+$(BUILDIR)/bin-ocaml-dumpast/parse_compat.ml: src/$(OCAML_VERSION)/parse_compat.ml | $(BUILDIR)/bin-ocaml-dumpast/
+	@if test -n "$$VERBOSE"; then echo '$(LN) $(ROOTDIR)/src/$(OCAML_VERSION)/parse_compat.ml $(BUILDIR)/bin-ocaml-dumpast/parse_compat.ml'; else echo '[33mbin-ocaml-dumpast-parse_compat[m        [01mprepare[m                parse_compat.ml'; fi
+	@$(LN) $(ROOTDIR)/src/$(OCAML_VERSION)/parse_compat.ml $(BUILDIR)/bin-ocaml-dumpast/parse_compat.ml
 
 $(BUILDIR)/bin-ocaml-dumpast/parse_compat.cml-byte: $(BUILDIR)/bin-ocaml-dumpast/parse_compat.ml
 	@if test -n "$$VERBOSE"; then echo '$(LN) $(ROOTDIR)/$(BUILDIR)/bin-ocaml-dumpast/parse_compat.ml $(BUILDIR)/bin-ocaml-dumpast/parse_compat.cml-byte'; else echo '[33mbin-ocaml-dumpast-parse_compat[m        [01mpp-byte[m                parse_compat.cml-byte'; fi
