@@ -20,7 +20,7 @@ open Misc
 open Printf
 
 let ppf = Format.err_formatter
-let tool_name = "ocaml-astdump"
+let tool_name = "ocaml-dumpast"
 
 type t =
   | Impl of Parsetree.structure
@@ -59,7 +59,7 @@ let dump oc file =
     exit 2
 
 let error () =
-  eprintf "Usage: ocaml-astdump [TOOL FLAGS*]? FILENAME\n";
+  eprintf "Usage: %s [TOOL FLAGS*]? FILENAME\n" tool_name;
   exit 1
 
 let () =
