@@ -6,3 +6,4 @@ build: [
   [make "402" { ocaml-version > "4.01" }]
   [make "install"]
 ]
+depends: ["ocamlfind"]
