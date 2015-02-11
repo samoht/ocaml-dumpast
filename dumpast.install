@@ -1,5 +1,4 @@
 bin: [
-  "?_build/bin-ocaml-dumpast/ocaml-dumpast.byte" {"ocaml-dumpast"}
+  "?_build/bin-ocaml-dumpast/ocaml-dumpast.byte"   {"ocaml-dumpast"}
   "?_build/bin-ocaml-dumpast/ocaml-dumpast.native" {"ocaml-dumpast"}
-  "?_build/bin-ocaml-dumpast/ocaml-dumpast.js" {"ocaml-dumpast"}
 ]
