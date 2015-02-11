@@ -351,7 +351,7 @@ ARCHIVE = https://github.com/samoht/ocaml-$(NAME)/archive/$(VERSION).tar.gz
 
 release:
 	git tag -a $(VERSION) -m "Version $(VERSION)."
-	git push upstream $(VERSION)
+	git push origin $(VERSION)
 	$(MAKE) pr
 
 pr:
