@@ -342,3 +342,18 @@ ifneq ($(filter-out clean help distclean,$(MAKECMDGOALS)),)
     $(BUILDIR)/bin-ocaml-dumpast/dumpast.ml.d
 endif
 include
+
+#### release scripts
+
+VERSION=0.2.0
+NAME    = dumpast
+ARCHIVE = https://github.com/samoht/ocaml-$(NAME)/archive/$(VERSION).tar.gz
+
+release:
+	git tag -a $(VERSION) -m "Version $(VERSION)."
+	git push upstream $(VERSION)
+	$(MAKE) pr
+
+pr:
+	opam publish prepare $(NAME).$(VERSION) $(ARCHIVE)
+	OPAMPUBLISHBYPASSCHECKS=1 OPAMYES=1 opam publish submit $(NAME).$(VERSION) && rm -rf $(NAME).$(VERSION)
